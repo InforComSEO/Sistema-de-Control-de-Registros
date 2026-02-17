@@ -1,0 +1,360 @@
+/**
+ * Estilos Específicos para Tablas
+ */
+
+@import url('variables.css');
+
+/* ===================================================================
+   TABLA GENERAL
+   =================================================================== */
+
+.tabla-dinamica {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--blanco);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.tabla-dinamica thead {
+    background: linear-gradient(135deg, var(--azul-1) 0%, var(--azul-3) 100%);
+    color: var(--blanco);
+}
+
+.tabla-dinamica th {
+    padding: 15px;
+    text-align: left;
+    font-weight: var(--peso-bold);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tabla-dinamica th:hover {
+    background: rgba(0, 188, 255, 0.1);
+}
+
+.tabla-dinamica th:last-child {
+    border-right: none;
+}
+
+.tabla-dinamica td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--gris-medio);
+    vertical-align: middle;
+}
+
+.tabla-dinamica tbody tr {
+    transition: all var(--transicion-rapida);
+}
+
+.tabla-dinamica tbody tr:hover {
+    background: var(--gris-claro);
+    box-shadow: inset 0 0 0 2px rgba(0, 188, 255, 0.1);
+}
+
+.tabla-dinamica tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ===================================================================
+   COLUMNAS ESPECIALES
+   =================================================================== */
+
+.th-id {
+    width: 60px;
+    text-align: center;
+}
+
+.td-id {
+    font-weight: var(--peso-bold);
+    color: var(--azul-1);
+    text-align: center;
+}
+
+.editable {
+    cursor: pointer;
+    position: relative;
+}
+
+.editable:hover {
+    background: rgba(0, 188, 255, 0.05);
+}
+
+.input-editar-celda {
+    width: 100%;
+    padding: 8px 12px;
+    border: 2px solid var(--celeste);
+    border-radius: var(--border-radius);
+    font-size: var(--tamaño-base);
+    background: var(--gris-claro);
+}
+
+.input-editar-celda:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 188, 255, 0.2);
+}
+
+.valor-original {
+    display: block;
+    word-break: break-word;
+}
+
+/* ===================================================================
+   ACCIONES DE TABLA
+   =================================================================== */
+
+.tabla-acciones {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-editar,
+.btn-ver,
+.btn-eliminar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all var(--transicion-rapida);
+    padding: 6px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-editar:hover {
+    background: rgba(0, 188, 255, 0.1);
+    color: var(--celeste);
+    transform: scale(1.1);
+}
+
+.btn-ver:hover {
+    background: rgba(0, 188, 255, 0.1);
+    color: var(--celeste);
+    transform: scale(1.1);
+}
+
+.btn-eliminar:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error);
+    transform: scale(1.1);
+}
+
+.btn-adjunto {
+    background: rgba(0, 188, 255, 0.1);
+    color: var(--celeste);
+    border: 1px solid var(--celeste);
+    padding: 6px 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all var(--transicion-rapida);
+}
+
+.btn-adjunto:hover {
+    background: var(--celeste);
+    color: var(--blanco);
+    transform: translateY(-2px);
+}
+
+/* ===================================================================
+   INFORMACIÓN DE TABLA
+   =================================================================== */
+
+.tabla-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--tamaño-sm);
+    color: var(--gris-oscuro);
+    padding: 12px 0;
+    margin-top: 15px;
+}
+
+.tabla-info span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ===================================================================
+   PAGINACIÓN
+   =================================================================== */
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.paginacion button {
+    padding: 8px 12px;
+    border: 2px solid var(--gris-medio);
+    background: var(--blanco);
+    color: var(--azul-1);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: var(--peso-semibold);
+    transition: all var(--transicion-rapida);
+}
+
+.paginacion button:hover {
+    border-color: var(--celeste);
+    background: var(--gris-claro);
+}
+
+.paginacion button.activa {
+    background: var(--celeste);
+    color: var(--blanco);
+    border-color: var(--celeste);
+}
+
+.paginacion button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ===================================================================
+   SKELETON LOADER
+   =================================================================== */
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--gris-claro) 25%,
+        var(--gris-medio) 50%,
+        var(--gris-claro) 75%
+    );
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-row {
+    display: table-row;
+}
+
+.skeleton-cell {
+    display: table-cell;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--gris-medio);
+    height: 40px;
+}
+
+/* ===================================================================
+   ESTADO VACÍO
+   =================================================================== */
+
+.tabla-vacia {
+    text-align: center;
+    padding: 40px;
+    color: var(--gris-oscuro);
+}
+
+.tabla-vacia-icono {
+    font-size: 48px;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+.tabla-vacia-titulo {
+    font-size: var(--tamaño-lg);
+    font-weight: var(--peso-semibold);
+    margin-bottom: 8px;
+}
+
+.tabla-vacia-descripcion {
+    font-size: var(--tamaño-sm);
+    opacity: 0.7;
+}
+
+/* ===================================================================
+   RESPONSIVE
+   =================================================================== */
+
+@media (max-width: 768px) {
+    .tabla-dinamica {
+        font-size: var(--tamaño-sm);
+    }
+    
+    .tabla-dinamica th,
+    .tabla-dinamica td {
+        padding: 10px;
+    }
+    
+    .tabla-acciones {
+        gap: 4px;
+    }
+    
+    .btn-editar,
+    .btn-ver,
+    .btn-eliminar {
+        font-size: 16px;
+    }
+    
+    .tabla-info {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .tabla-dinamica {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .tabla-dinamica thead {
+        display: none;
+    }
+    
+    .tabla-dinamica tbody,
+    .tabla-dinamica tr,
+    .tabla-dinamica td {
+        display: block;
+        width: 100%;
+    }
+    
+    .tabla-dinamica tr {
+        margin-bottom: 15px;
+        border: 1px solid var(--gris-medio);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+    }
+    
+    .tabla-dinamica td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid var(--gris-medio);
+    }
+    
+    .tabla-dinamica td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 6px;
+        font-weight: var(--peso-semibold);
+        text-align: left;
+    }
+    
+    .tabla-dinamica td:last-child {
+        border-bottom: none;
+    }
+}
