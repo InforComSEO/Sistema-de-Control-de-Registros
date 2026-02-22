@@ -9,6 +9,8 @@ require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../includes/auth.php';
 
+iniciarSesionSegura();
+
 header('Content-Type: application/json; charset=utf-8');
 
 if (!isset($_SESSION['user_id'])) {
@@ -20,7 +22,7 @@ try {
     $db = Database::getInstance()->getConnection();
 
     // =====================================================
-    // FILTROS DINÁMICOS
+    // FILTROS DINÁMICOS (aplicados a todas las consultas)
     // =====================================================
     $where = [];
     $params = [];
@@ -80,10 +82,12 @@ try {
     // =====================================================
     // 2. REGISTROS POR DÍA (últimos 30 días)
     // =====================================================
+    $whereDia = $where;
+    $whereDia[] = "r.fecha >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
+    $whereDiaSQL = ' WHERE ' . implode(' AND ', $whereDia);
+
     $sqlDia = "SELECT DATE_FORMAT(r.fecha, '%Y-%m-%d') as dia, COUNT(*) as total
-               FROM registros r $whereSQL
-               " . (count($where) > 0 ? " AND " : " WHERE ") . "
-               r.fecha >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+               FROM registros r $whereDiaSQL
                GROUP BY dia ORDER BY dia ASC";
     $stmt = $db->prepare($sqlDia);
     $stmt->execute($params);
@@ -92,12 +96,14 @@ try {
     // =====================================================
     // 3. REGISTROS POR SEMANA (últimas 12 semanas)
     // =====================================================
+    $whereSemana = $where;
+    $whereSemana[] = "r.fecha >= DATE_SUB(CURDATE(), INTERVAL 12 WEEK)";
+    $whereSemanaSQL = ' WHERE ' . implode(' AND ', $whereSemana);
+
     $sqlSemana = "SELECT YEARWEEK(r.fecha, 1) as semana_num,
                          MIN(DATE_FORMAT(r.fecha, '%Y-%m-%d')) as inicio_semana,
                          COUNT(*) as total
-                  FROM registros r $whereSQL
-                  " . (count($where) > 0 ? " AND " : " WHERE ") . "
-                  r.fecha >= DATE_SUB(CURDATE(), INTERVAL 12 WEEK)
+                  FROM registros r $whereSemanaSQL
                   GROUP BY semana_num ORDER BY semana_num ASC";
     $stmt = $db->prepare($sqlSemana);
     $stmt->execute($params);
@@ -106,12 +112,14 @@ try {
     // =====================================================
     // 4. REGISTROS POR MES (últimos 12 meses)
     // =====================================================
+    $whereMes = $where;
+    $whereMes[] = "r.fecha >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)";
+    $whereMesSQL = ' WHERE ' . implode(' AND ', $whereMes);
+
     $sqlMes = "SELECT DATE_FORMAT(r.fecha, '%Y-%m') as mes_num,
                       DATE_FORMAT(r.fecha, '%M %Y') as mes_nombre,
                       COUNT(*) as total
-               FROM registros r $whereSQL
-               " . (count($where) > 0 ? " AND " : " WHERE ") . "
-               r.fecha >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
+               FROM registros r $whereMesSQL
                GROUP BY mes_num ORDER BY mes_num ASC";
     $stmt = $db->prepare($sqlMes);
     $stmt->execute($params);
@@ -170,10 +178,12 @@ try {
     // =====================================================
     // 10. REGISTROS POR HORA DEL DÍA
     // =====================================================
+    $whereHora = $where;
+    $whereHora[] = "r.hora IS NOT NULL";
+    $whereHoraSQL = ' WHERE ' . implode(' AND ', $whereHora);
+
     $sqlHora = "SELECT HOUR(r.hora) as hora_num, COUNT(*) as total
-                FROM registros r $whereSQL
-                " . (count($where) > 0 ? " AND " : " WHERE ") . "
-                r.hora IS NOT NULL
+                FROM registros r $whereHoraSQL
                 GROUP BY hora_num ORDER BY hora_num ASC";
     $stmt = $db->prepare($sqlHora);
     $stmt->execute($params);
