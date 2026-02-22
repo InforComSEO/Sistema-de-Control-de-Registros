@@ -1,0 +1,335 @@
+/* =====================================================
+   Sistema de Control de Registros
+   Escuela Internacional de Psicología
+   Estilos: Gestión de Consultores
+   ===================================================== */
+
+/* =====================================================
+   FORMULARIO CREAR CONSULTOR
+   ===================================================== */
+.form-card {
+    background: var(--blanco);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 3px var(--sombra);
+    max-width: 520px;
+    overflow: hidden;
+}
+
+.form-card-header {
+    background: linear-gradient(135deg, var(--azul2), var(--azul3));
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-card-header i {
+    color: var(--celeste);
+    font-size: 15px;
+}
+
+.form-card-header h3 {
+    color: var(--blanco);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-card-body {
+    padding: 20px 18px;
+}
+
+.form-card-footer {
+    padding: 12px 18px;
+    background: var(--gris-claro);
+    border-top: 1px solid var(--gris-medio);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* Dos columnas en el form */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.form-row .form-group {
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--azul3);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.form-group label i {
+    font-size: 11px;
+    color: var(--azul3);
+    opacity: 0.7;
+}
+
+.form-group label .required {
+    color: var(--rojo);
+    font-size: 12px;
+}
+
+/* =====================================================
+   LISTA DE CONSULTORES
+   ===================================================== */
+.consultores-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.consultores-header h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--azul1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.consultores-header h3 i {
+    color: var(--azul3);
+}
+
+.consultores-count {
+    font-size: 12px;
+    color: var(--gris-texto);
+}
+
+/* Tabla de consultores */
+.consultores-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    background: var(--blanco);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 1px 3px var(--sombra);
+}
+
+.consultores-table thead th {
+    background: linear-gradient(180deg, var(--azul2), var(--azul3));
+    color: var(--blanco);
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+}
+
+.consultores-table tbody tr {
+    border-bottom: 1px solid var(--gris-medio);
+    transition: background 0.15s ease;
+}
+
+.consultores-table tbody tr:hover {
+    background: rgba(0, 188, 255, 0.03);
+}
+
+.consultores-table tbody td {
+    padding: 9px 12px;
+    color: var(--gris-oscuro);
+    white-space: nowrap;
+}
+
+/* Estado badge */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.badge-activo {
+    background: rgba(16, 185, 129, 0.1);
+    color: #065f46;
+}
+
+.badge-suspendido {
+    background: rgba(255, 54, 0, 0.1);
+    color: var(--rojo);
+}
+
+/* Botones de acción en la tabla */
+.actions-cell {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-action {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 11px;
+    transition: var(--transition);
+}
+
+.btn-action-edit {
+    background: rgba(0, 188, 255, 0.1);
+    color: var(--celeste);
+}
+
+.btn-action-edit:hover {
+    background: rgba(0, 188, 255, 0.2);
+}
+
+.btn-action-toggle {
+    background: rgba(255, 199, 0, 0.1);
+    color: #b45309;
+}
+
+.btn-action-toggle:hover {
+    background: rgba(255, 199, 0, 0.2);
+}
+
+.btn-action-delete {
+    background: rgba(255, 54, 0, 0.1);
+    color: var(--rojo);
+}
+
+.btn-action-delete:hover {
+    background: rgba(255, 54, 0, 0.2);
+}
+
+/* WhatsApp en la tabla */
+.consultores-table .btn-whatsapp {
+    color: #25D366;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+}
+
+.consultores-table .btn-whatsapp:hover {
+    text-decoration: underline;
+}
+
+/* Sin consultores */
+.no-consultores {
+    text-align: center;
+    padding: 30px;
+    color: var(--gris-texto);
+}
+
+.no-consultores i {
+    font-size: 30px;
+    color: var(--gris-borde);
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* =====================================================
+   MODAL CONFIRMACIÓN
+   ===================================================== */
+.confirm-modal .modal-box-header.confirm-danger {
+    background: linear-gradient(135deg, var(--rojo), #c02000);
+}
+
+.confirm-modal .modal-box-header.confirm-warning {
+    background: linear-gradient(135deg, #b45309, #d97706);
+}
+
+.confirm-modal .modal-box-header.confirm-success {
+    background: linear-gradient(135deg, #065f46, #10b981);
+}
+
+.confirm-modal .modal-box-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.confirm-modal .modal-box-body p {
+    font-size: 13px;
+    color: var(--gris-oscuro);
+    line-height: 1.5;
+}
+
+.confirm-modal .modal-box-body strong {
+    color: var(--azul1);
+}
+
+.confirm-modal .modal-box-footer {
+    padding: 12px 18px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-confirm {
+    padding: 8px 20px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.btn-confirm-cancel {
+    background: var(--gris-medio);
+    color: var(--gris-oscuro);
+}
+
+.btn-confirm-cancel:hover {
+    background: var(--gris-borde);
+}
+
+.btn-confirm-danger {
+    background: var(--rojo);
+    color: var(--blanco);
+}
+
+.btn-confirm-danger:hover {
+    background: #c02000;
+}
+
+.btn-confirm-success {
+    background: #065f46;
+    color: var(--blanco);
+}
+
+.btn-confirm-success:hover {
+    background: #047857;
+}
+
+.btn-confirm-warning {
+    background: #b45309;
+    color: var(--blanco);
+}
+
+.btn-confirm-warning:hover {
+    background: #92400e;
+}

@@ -1,0 +1,436 @@
+/* =====================================================
+   Sistema de Control de Registros
+   Escuela Internacional de Psicología
+   Estilos: Lista de Registros (Dashboard, Asesores, Delegados)
+   ===================================================== */
+
+/* =====================================================
+   ESTADÍSTICAS COMPACTAS
+   ===================================================== */
+.stats-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    flex: 1;
+    min-width: 100px;
+    background: var(--blanco);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 1px 3px var(--sombra);
+    border-left: 3px solid var(--gris-borde);
+    transition: var(--transition);
+}
+
+.stat-card:hover { box-shadow: 0 2px 8px var(--sombra); }
+.stat-total { border-left-color: var(--azul3); }
+.stat-today { border-left-color: #10b981; }
+.stat-week { border-left-color: var(--celeste); }
+.stat-month { border-left-color: #8b5cf6; }
+.stat-asesores { border-left-color: #f59e0b; }
+.stat-delegados { border-left-color: #f59e0b; }
+.stat-cursos { border-left-color: #ef4444; }
+.stat-paises { border-left-color: #06b6d4; }
+
+.stat-icon {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 6px; font-size: 13px;
+}
+
+.stat-total .stat-icon { background: rgba(7, 50, 90, 0.08); color: var(--azul3); }
+.stat-today .stat-icon { background: rgba(16, 185, 129, 0.08); color: #10b981; }
+.stat-week .stat-icon { background: rgba(0, 188, 255, 0.08); color: var(--celeste); }
+.stat-month .stat-icon { background: rgba(139, 92, 246, 0.08); color: #8b5cf6; }
+.stat-asesores .stat-icon { background: rgba(245, 158, 11, 0.08); color: #f59e0b; }
+.stat-delegados .stat-icon { background: rgba(245, 158, 11, 0.08); color: #f59e0b; }
+.stat-cursos .stat-icon { background: rgba(239, 68, 68, 0.08); color: #ef4444; }
+.stat-paises .stat-icon { background: rgba(6, 182, 212, 0.08); color: #06b6d4; }
+
+.stat-info { display: flex; flex-direction: column; }
+.stat-value { font-size: 18px; font-weight: 700; color: var(--azul1); line-height: 1.1; }
+.stat-label { font-size: 10px; color: var(--gris-texto); text-transform: uppercase; letter-spacing: 0.3px; }
+
+/* =====================================================
+   FILTROS SUPERIORES
+   ===================================================== */
+.filters-bar {
+    background: var(--blanco);
+    border-radius: var(--radius);
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px var(--sombra);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filters-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.filters-row-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--azul3);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    min-width: 50px;
+}
+
+/* Filtro select - se expanden al 100% */
+.filter-select {
+    padding: 6px 28px 6px 8px;
+    border: 1.5px solid var(--gris-borde);
+    border-radius: var(--radius);
+    font-size: 12px;
+    color: var(--azul1);
+    background: var(--blanco);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%236b7280'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    cursor: pointer;
+    flex: 1;
+    min-width: 0;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.filter-select:focus {
+    border-color: var(--celeste);
+    box-shadow: 0 0 0 2px rgba(0, 188, 255, 0.08);
+    outline: none;
+}
+
+.filter-select.active-filter {
+    border-color: var(--celeste);
+    background-color: rgba(0, 188, 255, 0.03);
+}
+
+/* Buscador general */
+.filter-search-wrapper {
+    position: relative;
+    flex: 2;
+    min-width: 180px;
+}
+
+.filter-search-wrapper i {
+    position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+    color: var(--gris-texto); font-size: 12px; pointer-events: none;
+}
+
+.filter-search {
+    width: 100%;
+    padding: 6px 8px 6px 28px;
+    border: 1.5px solid var(--gris-borde);
+    border-radius: var(--radius);
+    font-size: 12px; color: var(--azul1);
+    transition: var(--transition);
+    font-family: inherit; outline: none;
+}
+
+.filter-search:focus {
+    border-color: var(--celeste);
+    box-shadow: 0 0 0 2px rgba(0, 188, 255, 0.08);
+}
+
+/* Filtros de fecha */
+.filter-date-input {
+    padding: 5px 8px;
+    border: 1.5px solid var(--gris-borde);
+    border-radius: var(--radius);
+    font-size: 11px; color: var(--azul1);
+    font-family: inherit; outline: none;
+    transition: var(--transition);
+    max-width: 140px;
+}
+
+.filter-date-input:focus {
+    border-color: var(--celeste);
+    box-shadow: 0 0 0 2px rgba(0, 188, 255, 0.08);
+}
+
+.filter-separator {
+    font-size: 11px; color: var(--gris-texto); padding: 0 2px;
+}
+
+/* =====================================================
+   TIME PICKER (Selectores de hora con ícono reloj a la derecha)
+   ===================================================== */
+.time-picker-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    background: var(--blanco);
+    border: 1.5px solid var(--gris-borde);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+    padding: 0 6px;
+    position: relative;
+}
+
+.time-picker-wrapper:focus-within {
+    border-color: var(--celeste);
+    box-shadow: 0 0 0 2px rgba(0, 188, 255, 0.08);
+}
+
+.time-picker-wrapper::after {
+    content: '\f017';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 10px;
+    color: var(--gris-texto);
+    margin-left: 4px;
+    flex-shrink: 0;
+    pointer-events: none;
+}
+
+.time-picker-wrapper::before {
+    display: none;
+}
+
+.filter-time-select {
+    padding: 4px 2px 4px 2px;
+    border: none;
+    font-size: 11px;
+    color: var(--azul1);
+    background: transparent;
+    appearance: none;
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+    min-width: 28px;
+    text-align: center;
+}
+
+.time-sep {
+    font-size: 12px; font-weight: 700; color: var(--gris-texto);
+    padding: 0 1px; user-select: none;
+}
+
+/* =====================================================
+   BOTONES DE ACCIÓN DE FILTROS
+   ===================================================== */
+.btn-filter-action {
+    padding: 6px 12px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 11px; font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex; align-items: center; gap: 4px;
+    font-family: inherit; white-space: nowrap;
+}
+
+.btn-clear-filters {
+    background: var(--gris-claro); color: var(--gris-oscuro);
+    border: 1px solid var(--gris-borde);
+}
+.btn-clear-filters:hover { background: var(--gris-medio); }
+
+.btn-export-excel { background: #065f46; color: var(--blanco); }
+.btn-export-excel:hover { background: #047857; box-shadow: 0 2px 6px rgba(6, 95, 70, 0.3); }
+
+/* Contador de registros */
+.records-counter {
+    font-size: 11px; color: var(--gris-texto);
+    display: flex; align-items: center; gap: 4px;
+    margin-left: auto; white-space: nowrap;
+}
+.records-counter strong { color: var(--azul3); font-weight: 700; }
+
+/* Selector registros por carga */
+.filter-page-size {
+    padding: 3px 24px 3px 6px;
+    border: 1.5px solid var(--gris-borde);
+    border-radius: var(--radius);
+    font-size: 11px; color: var(--azul1);
+    background: var(--blanco);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%236b7280'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 6px center;
+    cursor: pointer; font-family: inherit; outline: none;
+    min-width: 60px; transition: var(--transition);
+}
+.filter-page-size:focus { border-color: var(--celeste); box-shadow: 0 0 0 2px rgba(0, 188, 255, 0.08); }
+
+/* =====================================================
+   TABLA DE REGISTROS
+   ===================================================== */
+.table-container {
+    background: var(--blanco);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 3px var(--sombra);
+    overflow: hidden;
+    position: relative;
+    /* La tabla ocupa el espacio restante */
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.table-scroll {
+    overflow-x: auto;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+.table-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+.table-scroll::-webkit-scrollbar-track { background: var(--gris-claro); }
+.table-scroll::-webkit-scrollbar-thumb { background: var(--gris-borde); border-radius: 6px; }
+.table-scroll::-webkit-scrollbar-thumb:hover { background: #adb5bd; }
+
+.data-table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.data-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.data-table thead th {
+    background: linear-gradient(180deg, var(--azul2), var(--azul3));
+    color: var(--blanco);
+    padding: 9px 12px;
+    text-align: left;
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    cursor: pointer; user-select: none;
+    position: relative;
+    transition: background 0.2s ease;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.data-table thead th:hover { background: linear-gradient(180deg, var(--azul3), #0a4a7a); }
+.data-table thead th:last-child { border-right: none; }
+.data-table thead th .sort-icon { margin-left: 4px; font-size: 9px; opacity: 0.4; }
+.data-table thead th.sort-asc .sort-icon,
+.data-table thead th.sort-desc .sort-icon { opacity: 1; color: var(--celeste); }
+.data-table thead th.no-sort { cursor: default; }
+
+.data-table tbody tr {
+    transition: background 0.15s ease;
+    border-bottom: 1px solid var(--gris-medio);
+}
+.data-table tbody tr:hover { background: rgba(0, 188, 255, 0.03); }
+.data-table tbody tr.new-row { animation: newRowHighlight 3s ease; }
+
+@keyframes newRowHighlight {
+    0% { background: rgba(0, 188, 255, 0.15); }
+    100% { background: transparent; }
+}
+
+.data-table tbody td {
+    padding: 7px 12px;
+    color: var(--gris-oscuro);
+    font-size: 12px;
+    white-space: nowrap;
+    position: relative;
+    height: 34px;
+}
+
+.data-table tbody td.cell-empty { color: #d1d5db; font-style: italic; }
+
+/* =====================================================
+   CELDA EDITABLE
+   ===================================================== */
+.data-table tbody td .cell-content {
+    display: flex; align-items: center; gap: 0;
+    width: 100%; min-height: 20px;
+}
+
+.data-table tbody td .cell-content .cell-text {
+    flex: 1; white-space: nowrap; min-width: 0;
+}
+
+.data-table tbody td .edit-btn {
+    width: 20px; height: 20px; min-width: 20px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: none; color: transparent;
+    cursor: pointer; font-size: 10px; border-radius: 3px;
+    transition: color 0.2s ease, background 0.2s ease;
+    flex-shrink: 0; padding: 0; margin-left: 4px;
+}
+
+.data-table tbody tr:hover td .edit-btn { color: var(--gris-texto); }
+.data-table tbody td .edit-btn:hover { color: var(--celeste); background: rgba(0, 188, 255, 0.1); }
+
+/* =====================================================
+   EDICIÓN INLINE
+   ===================================================== */
+.inline-edit-input {
+    width: 100%; padding: 3px 6px;
+    border: 1.5px solid var(--celeste); border-radius: 3px;
+    font-size: 12px; font-family: inherit; color: var(--azul1);
+    outline: none; background: #f0fbff;
+    box-shadow: 0 0 0 2px rgba(0, 188, 255, 0.15);
+}
+
+.inline-edit-actions { display: flex; gap: 3px; margin-top: 2px; }
+.inline-edit-actions button {
+    padding: 2px 6px; border: none; border-radius: 3px;
+    font-size: 10px; cursor: pointer; transition: var(--transition);
+}
+.inline-edit-save { background: #065f46; color: #fff; }
+.inline-edit-save:hover { background: #047857; }
+.inline-edit-cancel { background: var(--gris-medio); color: var(--gris-oscuro); }
+.inline-edit-cancel:hover { background: var(--gris-borde); }
+
+/* =====================================================
+   WHATSAPP / FILE
+   ===================================================== */
+.btn-whatsapp {
+    display: inline-flex; align-items: center; gap: 4px;
+    color: #25D366; text-decoration: none; font-size: 12px;
+    padding: 2px 4px; border-radius: 3px; transition: var(--transition);
+    white-space: nowrap;
+}
+.btn-whatsapp:hover { background: rgba(37, 211, 102, 0.1); }
+.btn-whatsapp i { font-size: 13px; flex-shrink: 0; }
+
+.btn-file-link {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; background: var(--azul3); color: var(--blanco);
+    border-radius: 3px; text-decoration: none; font-size: 10px; transition: var(--transition);
+}
+.btn-file-link:hover { background: var(--celeste); box-shadow: 0 2px 6px rgba(0, 188, 255, 0.3); }
+
+.no-file { color: var(--gris-borde); font-size: 11px; }
+
+/* =====================================================
+   LOADER / SIN RESULTADOS
+   ===================================================== */
+.table-loader { display: none; text-align: center; padding: 12px; }
+.table-loader.active { display: block; }
+.table-loader .mini-spinner {
+    display: inline-block; width: 18px; height: 18px;
+    border: 2px solid var(--gris-medio); border-top-color: var(--celeste);
+    border-radius: 50%; animation: spin 0.6s linear infinite;
+}
+
+.no-results { text-align: center; padding: 30px 15px; color: var(--gris-texto); }
+.no-results i { font-size: 28px; color: var(--gris-borde); margin-bottom: 8px; display: block; }
+.no-results p { font-size: 13px; }
